@@ -51,7 +51,7 @@ flaskapi/
 
 #### Create a User
 
-- URL: /send_name
+- URL: /api/send_name
 - Method: POST
 - Body:
 
@@ -64,13 +64,13 @@ flaskapi/
 
 #### Get Greetings
 
-- URL: /get_greetings
+- URL: /api/get_greetings
 - Method: GET
 - Description: Returns a list of greetings for all users.
 
 #### Actualizar un Usuario
 
-- URL: /update_user/<user_id>
+- URL: /api/update_user/<user_id>
 - Method: PUT o PATCH
 - Body:
 
@@ -95,6 +95,6 @@ o
 
 #### Eliminar un Usuario
 
-- URL: /delete_user/<user_id>
+- URL: /api/delete_user/<user_id>
 - Method: DELETE
 - Description: Delete a specific user based on their ID.
