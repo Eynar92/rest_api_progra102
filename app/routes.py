@@ -93,5 +93,6 @@ def upload_file():
     if file and allowed_file(file.filename):
         filename = file.filename
         file.save(os.path.join(UPLOAD_FOLDER, filename))
-        return jsonify({"message": f"File successfully uploaded: {filename}"}), 200
+        url=f"/uploads/{filename}"
+        return jsonify({"message": f"File successfully uploaded: {filename}", "url":url}), 200
     return jsonify({"message": "File type not allowed"}), 400
