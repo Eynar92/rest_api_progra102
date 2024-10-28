@@ -29,5 +29,11 @@ class DataHandler:
             return True
         return False
 
+    def authenticate(self, username, password):
+        for user in self.users:
+            if user.name == username and user.check_password(password):
+                return user
+        return None
+
 
 data_handler = DataHandler()

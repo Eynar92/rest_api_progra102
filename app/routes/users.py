@@ -1,22 +1,8 @@
-import os
 from flask import Blueprint, request, jsonify
 from app.models.user import User
 from app.models.data_handler import data_handler
 
 user_routes = Blueprint('users', __name__)
-
-
-@user_routes.route("/api/users/register", methods=['POST'])
-def create_user():
-    data = request.get_json()
-    name = data.get('name')
-    last_name = data.get('last_name')
-    user = User(name, last_name)
-    data_handler.add_user(user)
-    return jsonify({
-        "success": True,
-        "message": "User created successfully"
-    }), 201
 
 
 @user_routes.route("/api/users", methods=['GET'])
