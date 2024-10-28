@@ -1,11 +1,12 @@
 from flask import Blueprint, request, jsonify
-from app.models.user import User
 from app.models.data_handler import data_handler
+from app.utils.auth import token_required
 
 user_routes = Blueprint('users', __name__)
 
 
 @user_routes.route("/api/users", methods=['GET'])
+@token_required
 def get_users():
     users = data_handler.get_users()
     users_list = [
@@ -15,11 +16,13 @@ def get_users():
             "last_name": user.last_name,
         } for user in users]
     return jsonify({
+        "success": True,
         "users": users_list
     }), 200
 
 
 @user_routes.route("/api/users/<user_id>", methods=['GET'])
+@token_required
 def get_user(user_id):
     user = data_handler.get_user(user_id)
     if user:

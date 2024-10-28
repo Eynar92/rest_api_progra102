@@ -1,4 +1,6 @@
-from flask import Blueprint, request, jsonify
+import jwt
+import datetime
+from flask import Blueprint, request, jsonify, current_app
 from app.models.user import User
 from app.models.data_handler import data_handler
 
@@ -26,14 +28,19 @@ def login():
     password = data.get('password')
     user = data_handler.authenticate(username, password)
     if user:
+        token = jwt.encode(
+            {
+                'id': user.id,
+                'exp': datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=1)
+            },
+            current_app.config['SECRET_KEY'],
+            algorithm="HS256"
+        )
+
         return jsonify({
             "success": True,
             "message": "Login successfully",
-            "user": {
-                "id": user.id,
-                "name": user.name,
-                "last_name": user.last_name
-            }
+            "token": token
         }), 200
     else:
         return jsonify({
