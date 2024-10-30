@@ -3,8 +3,8 @@ from functools import wraps
 from flask import request, jsonify, current_app
 
 
-def token_required(f):
-    @wraps(f)
+def token_required(f_callback):
+    @wraps(f_callback)
     def decorated(*args, **kwargs):
         token = None
         if 'Authorization' in request.headers:
@@ -23,5 +23,5 @@ def token_required(f):
                 "success": False,
                 "message": "Token is invalid"
             }), 401
-        return f(*args, **kwargs)
+        return f_callback(*args, **kwargs)
     return decorated
